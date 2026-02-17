@@ -35,7 +35,7 @@ const Projects = () => {
       description:
         'Full-stack web application to rank and recommend academic program committee candidates using multi-factor scoring algorithm.',
       tech: ['Python', 'FastAPI', 'Next.js', 'React', 'NetworkX'],
-      image: '/project-scholarscout.jpg',
+      image: 'project-scholarscout.jpg',
       icon: Database,
       highlights: [
         'Built FastAPI backend with REST endpoints for researcher discovery',
@@ -53,7 +53,7 @@ const Projects = () => {
       description:
         'Backend plagiarism detection engine analyzing structural code similarities beyond surface-level changes.',
       tech: ['Python', 'Git', 'AST Parsing', 'Algorithm Design'],
-      image: '/project-plagiarism.jpg',
+      image: 'project-plagiarism.jpg',
       icon: Shield,
       highlights: [
         'Engineered backend detection engine for structural code analysis',
@@ -70,7 +70,7 @@ const Projects = () => {
       description:
         'Client-server file transfer application with integrated distributed tracing using OpenTelemetry.',
       tech: ['Java', 'OpenTelemetry', 'Distributed Systems', 'Testing'],
-      image: '/project-filetransfer.jpg',
+      image: 'project-filetransfer.jpg',
       icon: Network,
       highlights: [
         'Built client-server file transfer with distributed tracing',
@@ -87,7 +87,7 @@ const Projects = () => {
       description:
         'Relational database system for managing hockey league data with complex relationships.',
       tech: ['SQL', 'PostgreSQL', 'MS Access', 'Database Design'],
-      image: '/project-hockey.jpg',
+      image: 'project-hockey.jpg',
       icon: Code2,
       highlights: [
         'Designed normalized ER model with constraints and triggers',
@@ -195,7 +195,7 @@ const Projects = () => {
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={project.image}
+                      src={`${import.meta.env.BASE_URL}${project.image}`}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
@@ -308,3 +308,4 @@ const Projects = () => {
 };
 
 export default Projects;
+
