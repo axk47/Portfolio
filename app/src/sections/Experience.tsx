@@ -151,7 +151,7 @@ const Experience = () => {
     <section
       id="experience"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-background"
+      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-transparent"
     >
       {/* Background decoration */}
       <div className="absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary/5 to-transparent -z-10" />

@@ -137,7 +137,7 @@ const Skills = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-background"
+      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-transparent"
     >
       {/* Background decoration */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.05),transparent_70%)] -z-10" />

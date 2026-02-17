@@ -115,7 +115,7 @@ const About = () => {
       id="about"
       ref={sectionRef}
       className="relative py-24 lg:py-32 overflow-hidden z-30"
-      style={{ isolation: 'isolate', backgroundColor: 'hsl(var(--background))' }}
+      style={{ isolation: 'isolate',  }}
     >
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent z-0" />
