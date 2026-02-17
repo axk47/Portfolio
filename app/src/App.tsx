@@ -17,15 +17,7 @@ function App() {
 
   useEffect(() => {
     // Smooth scroll behavior
-    document.documentElement.style.scrollBehavior = 'smooth';
-
-    // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      setEffectsEnabled(false);
-    }
-
-    // Initialize scroll-based animations
+    document.documentElement.style.scrollBehavior = 'smooth';\r\n    // Initialize scroll-based animations
     const handleScroll = () => {
       const reveals = document.querySelectorAll('.section-reveal');
       reveals.forEach((reveal) => {
@@ -89,3 +81,4 @@ function App() {
 }
 
 export default App;
+
