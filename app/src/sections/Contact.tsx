@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -120,10 +120,10 @@ const Contact = () => {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-transparent"
+      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-background"
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent z-0" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
@@ -162,7 +162,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="bg-transparent/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all"
+                      className="bg-background/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all"
                     />
                   </div>
 
@@ -179,7 +179,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="bg-transparent/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all"
+                      className="bg-background/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all"
                     />
                   </div>
 
@@ -196,7 +196,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="bg-transparent/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all resize-none"
+                      className="bg-background/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all resize-none"
                     />
                   </div>
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Briefcase, Calendar, MapPin, ChevronRight } from 'lucide-react';
@@ -26,9 +26,9 @@ const Experience = () => {
   const experiences: ExperienceItem[] = [
     {
       title: 'AI Training Specialist',
-      company: 'Aether Project – Outlier AI',
+      company: 'Aether Project â€“ Outlier AI',
       location: 'Remote',
-      period: 'Jan 2026 – Present',
+      period: 'Jan 2026 â€“ Present',
       type: 'Contract',
       description: [
         'Train and evaluate large language models by generating high-quality code examples and providing detailed feedback on model-generated responses',
@@ -41,7 +41,7 @@ const Experience = () => {
       title: 'IT Go Live Support',
       company: 'Niagara Health',
       location: 'St. Catharines, ON',
-      period: 'Sep 2024 – Dec 2024',
+      period: 'Sep 2024 â€“ Dec 2024',
       type: 'Co-op',
       description: [
         'Analyzed complex software systems to identify bugs, troubleshoot issues, and implement fixes during critical deployment phases',
@@ -54,7 +54,7 @@ const Experience = () => {
       title: 'Scout Captain',
       company: 'Bharat Scout and Guides',
       location: 'Dammam, KSA',
-      period: 'Apr 2022 – Aug 2022',
+      period: 'Apr 2022 â€“ Aug 2022',
       type: 'Leadership',
       description: [
         'Led team of 30 members, increasing project completion efficiency by 20% through strategic task delegation',
@@ -151,10 +151,10 @@ const Experience = () => {
     <section
       id="experience"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-transparent"
+      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-background"
     >
       {/* Background decoration */}
-      <div className="absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary/5 to-transparent -z-10" />
+      <div className="absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary/5 to-transparent z-0" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}

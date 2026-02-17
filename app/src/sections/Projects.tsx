@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -35,7 +35,7 @@ const Projects = () => {
       description:
         'Full-stack web application to rank and recommend academic program committee candidates using multi-factor scoring algorithm.',
       tech: ['Python', 'FastAPI', 'Next.js', 'React', 'NetworkX'],
-      image: 'project-scholarscout.jpg',
+      image: '/project-scholarscout.jpg',
       icon: Database,
       highlights: [
         'Built FastAPI backend with REST endpoints for researcher discovery',
@@ -53,7 +53,7 @@ const Projects = () => {
       description:
         'Backend plagiarism detection engine analyzing structural code similarities beyond surface-level changes.',
       tech: ['Python', 'Git', 'AST Parsing', 'Algorithm Design'],
-      image: 'project-plagiarism.jpg',
+      image: '/project-plagiarism.jpg',
       icon: Shield,
       highlights: [
         'Engineered backend detection engine for structural code analysis',
@@ -70,7 +70,7 @@ const Projects = () => {
       description:
         'Client-server file transfer application with integrated distributed tracing using OpenTelemetry.',
       tech: ['Java', 'OpenTelemetry', 'Distributed Systems', 'Testing'],
-      image: 'project-filetransfer.jpg',
+      image: '/project-filetransfer.jpg',
       icon: Network,
       highlights: [
         'Built client-server file transfer with distributed tracing',
@@ -87,7 +87,7 @@ const Projects = () => {
       description:
         'Relational database system for managing hockey league data with complex relationships.',
       tech: ['SQL', 'PostgreSQL', 'MS Access', 'Database Design'],
-      image: 'project-hockey.jpg',
+      image: '/project-hockey.jpg',
       icon: Code2,
       highlights: [
         'Designed normalized ER model with constraints and triggers',
@@ -159,10 +159,10 @@ const Projects = () => {
     <section
       id="projects"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-transparent"
+      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-background"
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--primary)/0.08),transparent_60%)] -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--primary)/0.08),transparent_60%)] z-0" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -195,7 +195,7 @@ const Projects = () => {
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={`${import.meta.env.BASE_URL}${project.image}`}
+                      src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
@@ -308,4 +308,3 @@ const Projects = () => {
 };
 
 export default Projects;
-

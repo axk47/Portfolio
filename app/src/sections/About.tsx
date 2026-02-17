@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { GraduationCap, Award, BookOpen, Calendar, MapPin, Star, Cpu, Code, Terminal } from 'lucide-react';
@@ -115,24 +115,22 @@ const About = () => {
       id="about"
       ref={sectionRef}
       className="relative py-24 lg:py-32 overflow-hidden z-30"
-      style={{ isolation: 'isolate',  }}
+      style={{ isolation: 'isolate', backgroundColor: 'hsl(var(--background))' }}
     >
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent z-0" />
 
-      `<div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="mb-10">
-          <h2 ref={headingRef} className="text-4xl lg:text-5xl font-bold text-foreground">
-            About<span className="text-primary">.</span>
-          </h2>
-        </div>
-        <div className="mb-10 text-center lg:text-left">
-          <h2 ref={headingRef} className="text-4xl lg:text-5xl font-bold text-foreground">
-            About<span className="text-primary">.</span>
-          </h2>
-        </div>        <div className="grid lg:grid-cols-12 gap-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12">
           {/* Left column - Heading */}
           <div className="lg:col-span-3">
+            <h2
+              ref={headingRef}
+              className="text-4xl lg:text-5xl font-bold text-foreground mb-12 lg:mb-14"
+            >
+              About<span className="text-primary">.</span>
+            </h2>
+
             {/* Quick stats */}
             <div className="space-y-4">
               {stats.map((stat, index) => (
@@ -175,7 +173,7 @@ const About = () => {
                           </span>
                           <span className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
-                            Sep 2022 – Jun 2026
+                            Sep 2022 â€“ Jun 2026
                           </span>
                         </div>
                         <div className="flex flex-wrap gap-2 mb-4">
@@ -282,6 +280,4 @@ const About = () => {
 };
 
 export default About;
-
-
 

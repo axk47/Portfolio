@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -137,10 +137,10 @@ const Skills = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-transparent"
+      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-background"
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.05),transparent_70%)] -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.05),transparent_70%)] z-0" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
