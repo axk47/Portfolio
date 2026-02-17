@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
 import About from './sections/About';
@@ -17,7 +17,8 @@ function App() {
 
   useEffect(() => {
     // Smooth scroll behavior
-    document.documentElement.style.scrollBehavior = 'smooth';\r\n    // Initialize scroll-based animations
+    document.documentElement.style.scrollBehavior = 'smooth';
+    // Initialize scroll-based animations
     const handleScroll = () => {
       const reveals = document.querySelectorAll('.section-reveal');
       reveals.forEach((reveal) => {
