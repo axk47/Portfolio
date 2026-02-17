@@ -120,7 +120,7 @@ const Contact = () => {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-background"
+      className="relative py-24 lg:py-32 overflow-hidden z-30 bg-transparent"
     >
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent -z-10" />
@@ -162,7 +162,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="bg-background/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all"
+                      className="bg-transparent/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all"
                     />
                   </div>
 
@@ -179,7 +179,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="bg-background/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all"
+                      className="bg-transparent/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all"
                     />
                   </div>
 
@@ -196,7 +196,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="bg-background/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all resize-none"
+                      className="bg-transparent/50 border-border focus:border-primary focus:ring-primary/20 input-glow transition-all resize-none"
                     />
                   </div>
 
