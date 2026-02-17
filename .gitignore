@@ -1,0 +1,1 @@
+﻿# Node\napp/node_modules/\napp/dist/\n# OS\n.DS_Store\nThumbs.db\n# Env\n.env\n.env.*\n
