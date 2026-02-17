@@ -126,7 +126,7 @@ const About = () => {
           <div className="lg:col-span-3">
             <h2
               ref={headingRef}
-              className="text-4xl lg:text-5xl font-bold text-foreground sticky top-32 z-20"
+              className="text-4xl lg:text-5xl font-bold text-foreground mb-8 lg:mb-10"
             >
               About<span className="text-primary">.</span>
             </h2>
@@ -280,3 +280,4 @@ const About = () => {
 };
 
 export default About;
+
