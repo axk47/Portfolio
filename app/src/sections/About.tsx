@@ -120,7 +120,12 @@ const About = () => {
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent z-0" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      `<div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="mb-10">
+          <h2 ref={headingRef} className="text-4xl lg:text-5xl font-bold text-foreground">
+            About<span className="text-primary">.</span>
+          </h2>
+        </div>
         <div className="mb-10 text-center lg:text-left">
           <h2 ref={headingRef} className="text-4xl lg:text-5xl font-bold text-foreground">
             About<span className="text-primary">.</span>
@@ -129,7 +134,7 @@ const About = () => {
           {/* Left column - Heading */}
           <div className="lg:col-span-3">
             {/* Quick stats */}
-            <div className="mt-8 space-y-4">
+            <div className="space-y-4">
               {stats.map((stat, index) => (
                 <div 
                   key={index} 
@@ -277,5 +282,6 @@ const About = () => {
 };
 
 export default About;
+
 
 
