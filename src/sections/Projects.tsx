@@ -2,16 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  ExternalLink,
-  Github,
-  Code2,
-  Database,
-  Network,
-  Shield,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ExternalLink, Github, Code2, Database, Network, Shield } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TiltCard from "@/components/TiltCard";
@@ -121,7 +112,7 @@ const Projects: React.FC = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
-  // Keeping this only for the mobile dots/buttons UI (visual)
+  // NOTE: kept only because it existed before; can be removed if unused elsewhere
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -166,6 +157,7 @@ const Projects: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
+  // (These were only used by the removed mobile controls; safe to remove too if you want)
   const nextProject = () => setActiveIndex((prev) => (prev + 1) % PROJECTS.length);
   const prevProject = () =>
     setActiveIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
@@ -193,12 +185,7 @@ const Projects: React.FC = () => {
           </p>
         </div>
 
-        {/* Projects grid with 3D tilt
-            Reduced size ~20% by:
-            - smaller card max width on large screens
-            - slightly smaller image height
-            - slightly smaller padding/text
-        */}
+        {/* Projects grid with 3D tilt */}
         <div
           ref={cardsRef}
           className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto"
@@ -261,7 +248,10 @@ const Projects: React.FC = () => {
                     {/* Highlights */}
                     <ul className="space-y-1 mb-3.5">
                       {project.highlights.slice(0, 2).map((highlight, i) => (
-                        <li key={i} className="flex items-start gap-2 text-[11px] text-muted-foreground">
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-[11px] text-muted-foreground"
+                        >
                           <div
                             className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0"
                             style={{ backgroundColor: project.color }}
@@ -319,6 +309,7 @@ const Projects: React.FC = () => {
             </div>
           ))}
         </div>
+      </div>
     </section>
   );
 };
