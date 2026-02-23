@@ -214,7 +214,7 @@ const Hero = () => {
               Abdullah Abdul Khader
             </h1>
 
-            <p className="typing-js text-xl sm:text-2xl lg:text-3xl text-gradient font-semibold mb-6 font-mono">
+            <p className="typing-js text-xl sm:text-2xl lg:text-3xl text-gradient font-semibold mb-6 font-mono max-w-full overflow-hidden whitespace-normal break-words">
               {roleText}
             </p>
 
