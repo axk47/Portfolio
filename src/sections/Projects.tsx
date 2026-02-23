@@ -61,8 +61,7 @@ const PROJECTS: Project[] = [
       "Designed dynamic UI for query submission",
       "Used graph-based scoring to identify influential researchers",
     ],
-    github: "#",
-    demo: "#",
+    github: "https://github.com/axk47/ScholarScout.git",
     color: "hsl(199 89% 48%)",
   },
   {
@@ -113,7 +112,6 @@ const PROJECTS: Project[] = [
       "Built queries for teams, players, agents, and events",
       "Optimized reporting-oriented queries",
     ],
-    github: "#",
     color: "hsl(250 84% 60%)",
   },
 ];
