@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import TiltCard from "@/components/ui/TiltCard";
+import TiltCard from "@/components/TiltCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,7 +23,7 @@ interface Project {
   subtitle: string;
   description: string;
   tech: string[];
-  image: string; // resolved path to public/ (GitHub pages safe)
+  image: string; // GitHub pages safe resolved path to public/
   icon: React.ElementType;
   highlights: string[];
   github?: string;
@@ -58,8 +58,8 @@ const PROJECTS: Project[] = [
     highlights: [
       "Built FastAPI backend with REST endpoints for researcher discovery",
       "Implemented semantic similarity matching and explainable ranking",
-      "Designed Next.js-style UI for query submission",
-      "Used PageRank-inspired scoring on collaboration graphs",
+      "Designed dynamic UI for query submission",
+      "Used graph-based scoring to identify influential researchers",
     ],
     github: "#",
     demo: "#",
@@ -93,7 +93,7 @@ const PROJECTS: Project[] = [
     highlights: [
       "Built client-server file transfer with distributed tracing",
       "Instrumented spans/metrics for end-to-end observability",
-      "Implemented regression and integration tests",
+      "Implemented comprehensive regression/integration testing",
       "Focused on reliability and performance debugging",
     ],
     github: "https://github.com/axk47/Distributed-File-Transfer.git",
@@ -109,7 +109,7 @@ const PROJECTS: Project[] = [
     icon: Code2,
     highlights: [
       "Designed normalized ER model with constraints and triggers",
-      "Implemented schema + views for complex sports data",
+      "Implemented relational schema with views for complex sports data",
       "Built queries for teams, players, agents, and events",
       "Optimized reporting-oriented queries",
     ],
@@ -123,7 +123,7 @@ const Projects: React.FC = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
-  // only used for mobile dots + buttons (like privPortfolio)
+  // Only used for mobile dots + buttons (visual)
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -144,22 +144,17 @@ const Projects: React.FC = () => {
       );
 
       const cards = cardsRef.current?.querySelectorAll(".project-card-wrapper");
-      cards?.forEach((card, index) => {
+      cards?.forEach((card, i) => {
         gsap.fromTo(
           card,
-          {
-            rotationY: -30,
-            rotationX: 10,
-            z: -100,
-            opacity: 0,
-          },
+          { rotationY: -30, rotationX: 10, z: -100, opacity: 0 },
           {
             rotationY: 0,
             rotationX: 0,
             z: 0,
             opacity: 1,
             duration: 1,
-            delay: index * 0.15,
+            delay: i * 0.15,
             ease: "expo.out",
             scrollTrigger: {
               trigger: sectionRef.current,
@@ -173,9 +168,9 @@ const Projects: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  const nextProject = () => setActiveIndex((prev) => (prev + 1) % PROJECTS.length);
+  const nextProject = () => setActiveIndex((p) => (p + 1) % PROJECTS.length);
   const prevProject = () =>
-    setActiveIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
+    setActiveIndex((p) => (p - 1 + PROJECTS.length) % PROJECTS.length);
 
   return (
     <section
@@ -206,7 +201,7 @@ const Projects: React.FC = () => {
           className="grid lg:grid-cols-2 gap-8"
           style={{ perspective: "1000px" }}
         >
-          {PROJECTS.map((project, index) => (
+          {PROJECTS.map((project) => (
             <div key={project.title} className="project-card-wrapper">
               <TiltCard className="h-full" tiltAmount={10} glowColor={project.color}>
                 <Card className="glass overflow-hidden group card-shine hover:shadow-xl transition-all duration-500 h-full border-0">
@@ -263,10 +258,7 @@ const Projects: React.FC = () => {
                     {/* Highlights */}
                     <ul className="space-y-1 mb-4">
                       {project.highlights.slice(0, 2).map((highlight, i) => (
-                        <li
-                          key={i}
-                          className="flex items-start gap-2 text-xs text-muted-foreground"
-                        >
+                        <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
                           <div
                             className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0"
                             style={{ backgroundColor: project.color }}
@@ -276,7 +268,7 @@ const Projects: React.FC = () => {
                       ))}
                     </ul>
 
-                    {/* Tech stack */}
+                    {/* Tech */}
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tech.map((tech, i) => (
                         <Badge
@@ -293,7 +285,12 @@ const Projects: React.FC = () => {
                     {/* Actions */}
                     <div className="flex gap-3">
                       {project.github && (
-                        <Button asChild variant="outline" size="sm" className="flex-1 hover:bg-primary/10 hover:border-primary/50 transition-all">
+                        <Button
+                          asChild
+                          variant="outline"
+                          size="sm"
+                          className="flex-1 hover:bg-primary/10 hover:border-primary/50 transition-all"
+                        >
                           <a href={project.github} target="_blank" rel="noopener noreferrer">
                             <Github className="h-4 w-4 mr-2" />
                             Code
@@ -301,7 +298,11 @@ const Projects: React.FC = () => {
                         </Button>
                       )}
                       {project.demo && (
-                        <Button asChild size="sm" className="flex-1 bg-primary hover:bg-primary/90 transition-all">
+                        <Button
+                          asChild
+                          size="sm"
+                          className="flex-1 bg-primary hover:bg-primary/90 transition-all"
+                        >
                           <a href={project.demo} target="_blank" rel="noopener noreferrer">
                             <ExternalLink className="h-4 w-4 mr-2" />
                             Demo
@@ -316,17 +317,17 @@ const Projects: React.FC = () => {
           ))}
         </div>
 
-        {/* Mobile carousel controls (visual only, like privPortfolio) */}
+        {/* Mobile controls (visual) */}
         <div className="flex justify-center gap-4 mt-8 lg:hidden">
           <Button variant="outline" size="icon" onClick={prevProject} aria-label="Previous project">
             <ChevronLeft className="h-5 w-5" />
           </Button>
           <div className="flex items-center gap-2">
-            {PROJECTS.map((_, index) => (
+            {PROJECTS.map((_, i) => (
               <div
-                key={index}
+                key={i}
                 className={`w-2 h-2 rounded-full transition-colors ${
-                  index === activeIndex ? "bg-primary" : "bg-muted"
+                  i === activeIndex ? "bg-primary" : "bg-muted"
                 }`}
               />
             ))}
