@@ -163,7 +163,7 @@ const Hero = () => {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-screen flex items-center justify-center overflow-x-clip overflow-y-hidden"
       style={{ perspective: '1500px' }}
     >
       <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0" />
@@ -182,9 +182,10 @@ const Hero = () => {
         }}
       />
 
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse" />
+      {/* Glow orbs behind content (responsive to prevent mobile overflow) */}
+      <div className="absolute top-1/4 left-1/4 w-56 h-56 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-primary/20 rounded-full blur-[90px] sm:blur-[110px] lg:blur-[120px] animate-pulse" />
       <div
-        className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/20 rounded-full blur-[100px] animate-pulse"
+        className="absolute bottom-1/4 right-1/4 w-52 h-52 sm:w-72 sm:h-72 lg:w-80 lg:h-80 bg-cyan-500/20 rounded-full blur-[80px] sm:blur-[95px] lg:blur-[100px] animate-pulse"
         style={{ animationDelay: '1s' }}
       />
 
