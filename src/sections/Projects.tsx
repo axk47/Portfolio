@@ -22,7 +22,8 @@ interface Project {
 }
 
 // NOTE: use import.meta.env.BASE_URL so images work on GitHub Pages subpath
-const withBase = (path: string) => new URL(path.replace(/^\//, ""), import.meta.env.BASE_URL).toString();
+// Vite guarantees BASE_URL ends with "/", so we just strip any leading slash from the path
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
 const PROJECTS: Project[] = [
   {
