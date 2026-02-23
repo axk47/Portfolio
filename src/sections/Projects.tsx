@@ -319,27 +319,6 @@ const Projects: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* Mobile controls (visual only, same as before) */}
-        <div className="flex justify-center gap-4 mt-8 lg:hidden">
-          <Button variant="outline" size="icon" onClick={prevProject} aria-label="Previous project">
-            <ChevronLeft className="h-5 w-5" />
-          </Button>
-          <div className="flex items-center gap-2">
-            {PROJECTS.map((_, i) => (
-              <div
-                key={i}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  i === activeIndex ? "bg-primary" : "bg-muted"
-                }`}
-              />
-            ))}
-          </div>
-          <Button variant="outline" size="icon" onClick={nextProject} aria-label="Next project">
-            <ChevronRight className="h-5 w-5" />
-          </Button>
-        </div>
-      </div>
     </section>
   );
 };
