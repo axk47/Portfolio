@@ -309,7 +309,7 @@ const Hero = () => {
                 }}
               >
                 <img
-                  src="/ak-hero.png"
+                  src={`${import.meta.env.BASE_URL}ak-hero.png`}
                   alt="AK Monogram"
                   className="w-full h-full object-cover object-center scale-[2.0] translate-x-0, translate-y-[8%]"
                 />
