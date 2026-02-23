@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -118,35 +118,14 @@ const PROJECTS: Project[] = [
   },
 ];
 
-const PAGE_SIZE = 4;
-
 const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
-  // 0-based page index
-  const [page, setPage] = useState(0);
+  // Keeping this only for the mobile dots/buttons UI (visual)
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const totalPages = Math.max(1, Math.ceil(PROJECTS.length / PAGE_SIZE));
-
-  const visibleProjects = useMemo(() => {
-    const start = page * PAGE_SIZE;
-    return PROJECTS.slice(start, start + PAGE_SIZE);
-  }, [page]);
-
-  // Invisible placeholders to keep a stable 2x2 layout even on the last page
-  const placeholders = useMemo(() => {
-    const missing = Math.max(0, PAGE_SIZE - visibleProjects.length);
-    return Array.from({ length: missing });
-  }, [visibleProjects.length]);
-
-  // Clamp page if PROJECTS length changes later
-  useEffect(() => {
-    setPage((p) => Math.min(p, totalPages - 1));
-  }, [totalPages]);
-
-  // Animate heading + cards; re-run card animation when page changes
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -168,25 +147,30 @@ const Projects: React.FC = () => {
       cards?.forEach((card, i) => {
         gsap.fromTo(
           card,
-          { rotationY: -25, rotationX: 8, z: -80, opacity: 0 },
+          { rotationY: -30, rotationX: 10, z: -100, opacity: 0 },
           {
             rotationY: 0,
             rotationX: 0,
             z: 0,
             opacity: 1,
-            duration: 0.9,
-            delay: i * 0.12,
+            duration: 1,
+            delay: i * 0.15,
             ease: "expo.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 70%",
+            },
           }
         );
       });
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [page]);
+  }, []);
 
-  const nextPage = () => setPage((p) => Math.min(totalPages - 1, p + 1));
-  const prevPage = () => setPage((p) => Math.max(0, p - 1));
+  const nextProject = () => setActiveIndex((prev) => (prev + 1) % PROJECTS.length);
+  const prevProject = () =>
+    setActiveIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
 
   return (
     <section
@@ -211,18 +195,23 @@ const Projects: React.FC = () => {
           </p>
         </div>
 
-        {/* Projects grid (max 4 visible) */}
+        {/* Projects grid with 3D tilt
+            Reduced size ~20% by:
+            - smaller card max width on large screens
+            - slightly smaller image height
+            - slightly smaller padding/text
+        */}
         <div
           ref={cardsRef}
-          className="grid lg:grid-cols-2 gap-8"
+          className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto"
           style={{ perspective: "1000px" }}
         >
-          {visibleProjects.map((project) => (
+          {PROJECTS.map((project) => (
             <div key={project.title} className="project-card-wrapper">
               <TiltCard className="h-full" tiltAmount={10} glowColor={project.color}>
                 <Card className="glass overflow-hidden group card-shine hover:shadow-xl transition-all duration-500 h-full border-0">
                   {/* Image */}
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-40 overflow-hidden">
                     <img
                       src={project.image}
                       alt={project.title}
@@ -232,52 +221,49 @@ const Projects: React.FC = () => {
 
                     {/* Icon overlay */}
                     <div
-                      className="absolute bottom-4 left-4 p-3 rounded-xl backdrop-blur-sm"
+                      className="absolute bottom-3 left-3 p-2.5 rounded-xl backdrop-blur-sm"
                       style={{ backgroundColor: `${project.color}30` }}
                     >
-                      <project.icon className="h-6 w-6" style={{ color: project.color }} />
+                      <project.icon className="h-5 w-5" style={{ color: project.color }} />
                     </div>
 
                     {/* Corner accents */}
                     <div
-                      className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 opacity-50"
+                      className="absolute top-2 left-2 w-5 h-5 border-l-2 border-t-2 opacity-50"
                       style={{ borderColor: project.color }}
                     />
                     <div
-                      className="absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 opacity-50"
+                      className="absolute top-2 right-2 w-5 h-5 border-r-2 border-t-2 opacity-50"
                       style={{ borderColor: project.color }}
                     />
                     <div
-                      className="absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 opacity-50"
+                      className="absolute bottom-2 left-2 w-5 h-5 border-l-2 border-b-2 opacity-50"
                       style={{ borderColor: project.color }}
                     />
                     <div
-                      className="absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 opacity-50"
+                      className="absolute bottom-2 right-2 w-5 h-5 border-r-2 border-b-2 opacity-50"
                       style={{ borderColor: project.color }}
                     />
                   </div>
 
-                  <CardContent className="p-6">
+                  <CardContent className="p-5">
                     {/* Title */}
-                    <div className="mb-3">
-                      <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                    <div className="mb-2.5">
+                      <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground">{project.subtitle}</p>
+                      <p className="text-xs text-muted-foreground">{project.subtitle}</p>
                     </div>
 
                     {/* Description */}
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                    <p className="text-muted-foreground text-sm mb-3.5 line-clamp-2">
                       {project.description}
                     </p>
 
                     {/* Highlights */}
-                    <ul className="space-y-1 mb-4">
+                    <ul className="space-y-1 mb-3.5">
                       {project.highlights.slice(0, 2).map((highlight, i) => (
-                        <li
-                          key={i}
-                          className="flex items-start gap-2 text-xs text-muted-foreground"
-                        >
+                        <li key={i} className="flex items-start gap-2 text-[11px] text-muted-foreground">
                           <div
                             className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0"
                             style={{ backgroundColor: project.color }}
@@ -287,13 +273,13 @@ const Projects: React.FC = () => {
                       ))}
                     </ul>
 
-                    {/* Tech */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    {/* Tech stack */}
+                    <div className="flex flex-wrap gap-2 mb-3.5">
                       {project.tech.map((tech, i) => (
                         <Badge
                           key={i}
                           variant="outline"
-                          className="text-xs border-opacity-30"
+                          className="text-[11px] border-opacity-30 px-2 py-0.5"
                           style={{ borderColor: project.color, color: project.color }}
                         >
                           {tech}
@@ -308,7 +294,7 @@ const Projects: React.FC = () => {
                           asChild
                           variant="outline"
                           size="sm"
-                          className="flex-1 hover:bg-primary/10 hover:border-primary/50 transition-all"
+                          className="flex-1 h-8 px-3 text-xs hover:bg-primary/10 hover:border-primary/50 transition-all"
                         >
                           <a href={project.github} target="_blank" rel="noopener noreferrer">
                             <Github className="h-4 w-4 mr-2" />
@@ -320,7 +306,7 @@ const Projects: React.FC = () => {
                         <Button
                           asChild
                           size="sm"
-                          className="flex-1 bg-primary hover:bg-primary/90 transition-all"
+                          className="flex-1 h-8 px-3 text-xs bg-primary hover:bg-primary/90 transition-all"
                         >
                           <a href={project.demo} target="_blank" rel="noopener noreferrer">
                             <ExternalLink className="h-4 w-4 mr-2" />
@@ -334,51 +320,24 @@ const Projects: React.FC = () => {
               </TiltCard>
             </div>
           ))}
-
-          {/* Invisible placeholders so last page still looks like a full 2x2 grid */}
-          {placeholders.map((_, i) => (
-            <div
-              // keep the same wrapper class so layout + gsap querying stays consistent,
-              // but hide it so it doesn't show an empty card
-              key={`ph-${page}-${i}`}
-              className="project-card-wrapper hidden lg:block"
-              aria-hidden="true"
-            />
-          ))}
         </div>
 
-        {/* Pagination controls */}
-        <div className="flex justify-center items-center gap-4 mt-10">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={prevPage}
-            disabled={page === 0}
-            aria-label="Previous page"
-          >
+        {/* Mobile controls (visual only, same as before) */}
+        <div className="flex justify-center gap-4 mt-8 lg:hidden">
+          <Button variant="outline" size="icon" onClick={prevProject} aria-label="Previous project">
             <ChevronLeft className="h-5 w-5" />
           </Button>
-
           <div className="flex items-center gap-2">
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <button
+            {PROJECTS.map((_, i) => (
+              <div
                 key={i}
-                onClick={() => setPage(i)}
-                aria-label={`Go to page ${i + 1}`}
-                className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                  i === page ? "bg-primary" : "bg-muted hover:bg-muted-foreground/60"
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  i === activeIndex ? "bg-primary" : "bg-muted"
                 }`}
               />
             ))}
           </div>
-
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={nextPage}
-            disabled={page === totalPages - 1}
-            aria-label="Next page"
-          >
+          <Button variant="outline" size="icon" onClick={nextProject} aria-label="Next project">
             <ChevronRight className="h-5 w-5" />
           </Button>
         </div>
