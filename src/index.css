@@ -555,7 +555,16 @@
 .typing-js {
   display: inline-block;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: normal;              /* allow wrap */
+  word-break: break-word;           /* prevent overflow */
+  max-width: 100%;
   border-right: 2px solid hsl(var(--primary));
   animation: blink-caret 1s step-end infinite;
+}
+
+/* Optional: if you only want wrapping on mobile */
+@media (min-width: 640px) {
+  .typing-js {
+    white-space: nowrap;
+  }
 }
