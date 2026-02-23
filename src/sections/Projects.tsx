@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -118,14 +118,35 @@ const PROJECTS: Project[] = [
   },
 ];
 
+const PAGE_SIZE = 4;
+
 const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
-  // Only used for mobile dots + buttons (visual)
-  const [activeIndex, setActiveIndex] = useState(0);
+  // 0-based page index
+  const [page, setPage] = useState(0);
 
+  const totalPages = Math.max(1, Math.ceil(PROJECTS.length / PAGE_SIZE));
+
+  const visibleProjects = useMemo(() => {
+    const start = page * PAGE_SIZE;
+    return PROJECTS.slice(start, start + PAGE_SIZE);
+  }, [page]);
+
+  // Invisible placeholders to keep a stable 2x2 layout even on the last page
+  const placeholders = useMemo(() => {
+    const missing = Math.max(0, PAGE_SIZE - visibleProjects.length);
+    return Array.from({ length: missing });
+  }, [visibleProjects.length]);
+
+  // Clamp page if PROJECTS length changes later
+  useEffect(() => {
+    setPage((p) => Math.min(p, totalPages - 1));
+  }, [totalPages]);
+
+  // Animate heading + cards; re-run card animation when page changes
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -147,30 +168,25 @@ const Projects: React.FC = () => {
       cards?.forEach((card, i) => {
         gsap.fromTo(
           card,
-          { rotationY: -30, rotationX: 10, z: -100, opacity: 0 },
+          { rotationY: -25, rotationX: 8, z: -80, opacity: 0 },
           {
             rotationY: 0,
             rotationX: 0,
             z: 0,
             opacity: 1,
-            duration: 1,
-            delay: i * 0.15,
+            duration: 0.9,
+            delay: i * 0.12,
             ease: "expo.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 70%",
-            },
           }
         );
       });
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [page]);
 
-  const nextProject = () => setActiveIndex((p) => (p + 1) % PROJECTS.length);
-  const prevProject = () =>
-    setActiveIndex((p) => (p - 1 + PROJECTS.length) % PROJECTS.length);
+  const nextPage = () => setPage((p) => Math.min(totalPages - 1, p + 1));
+  const prevPage = () => setPage((p) => Math.max(0, p - 1));
 
   return (
     <section
@@ -195,13 +211,13 @@ const Projects: React.FC = () => {
           </p>
         </div>
 
-        {/* Projects grid with 3D tilt */}
+        {/* Projects grid (max 4 visible) */}
         <div
           ref={cardsRef}
           className="grid lg:grid-cols-2 gap-8"
           style={{ perspective: "1000px" }}
         >
-          {PROJECTS.map((project) => (
+          {visibleProjects.map((project) => (
             <div key={project.title} className="project-card-wrapper">
               <TiltCard className="h-full" tiltAmount={10} glowColor={project.color}>
                 <Card className="glass overflow-hidden group card-shine hover:shadow-xl transition-all duration-500 h-full border-0">
@@ -258,7 +274,10 @@ const Projects: React.FC = () => {
                     {/* Highlights */}
                     <ul className="space-y-1 mb-4">
                       {project.highlights.slice(0, 2).map((highlight, i) => (
-                        <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-xs text-muted-foreground"
+                        >
                           <div
                             className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0"
                             style={{ backgroundColor: project.color }}
@@ -315,24 +334,51 @@ const Projects: React.FC = () => {
               </TiltCard>
             </div>
           ))}
+
+          {/* Invisible placeholders so last page still looks like a full 2x2 grid */}
+          {placeholders.map((_, i) => (
+            <div
+              // keep the same wrapper class so layout + gsap querying stays consistent,
+              // but hide it so it doesn't show an empty card
+              key={`ph-${page}-${i}`}
+              className="project-card-wrapper hidden lg:block"
+              aria-hidden="true"
+            />
+          ))}
         </div>
 
-        {/* Mobile controls (visual) */}
-        <div className="flex justify-center gap-4 mt-8 lg:hidden">
-          <Button variant="outline" size="icon" onClick={prevProject} aria-label="Previous project">
+        {/* Pagination controls */}
+        <div className="flex justify-center items-center gap-4 mt-10">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={prevPage}
+            disabled={page === 0}
+            aria-label="Previous page"
+          >
             <ChevronLeft className="h-5 w-5" />
           </Button>
+
           <div className="flex items-center gap-2">
-            {PROJECTS.map((_, i) => (
-              <div
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
                 key={i}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  i === activeIndex ? "bg-primary" : "bg-muted"
+                onClick={() => setPage(i)}
+                aria-label={`Go to page ${i + 1}`}
+                className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                  i === page ? "bg-primary" : "bg-muted hover:bg-muted-foreground/60"
                 }`}
               />
             ))}
           </div>
-          <Button variant="outline" size="icon" onClick={nextProject} aria-label="Next project">
+
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={nextPage}
+            disabled={page === totalPages - 1}
+            aria-label="Next page"
+          >
             <ChevronRight className="h-5 w-5" />
           </Button>
         </div>
