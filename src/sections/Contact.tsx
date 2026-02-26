@@ -108,7 +108,7 @@ const Contact = () => {
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Thorold, ON, Canada',
+      value: 'Toronto, ON, Canada',
       href: '#',
     },
   ];
