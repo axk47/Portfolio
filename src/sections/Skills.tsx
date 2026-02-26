@@ -1,4 +1,4 @@
-// import { useEffect, useRef, useState } from 'react'; // Removed the percentage showing while hover
+import { useEffect, useRef, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -16,7 +16,6 @@ const Skills = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cloudRef = useRef<HTMLDivElement>(null);
-  // const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const skills: Skill[] = [
@@ -153,7 +152,8 @@ const Skills = () => {
             Technical <span className="text-gradient">Arsenal</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            A comprehensive toolkit built through academic excellence and hands-on project experience
+            A comprehensive toolkit built through academic excellence and
+            hands-on project experience
           </p>
         </div>
 
@@ -164,11 +164,19 @@ const Skills = () => {
             <span className="text-sm text-muted-foreground">Languages</span>
           </div>
           <div className="flex items-center gap-2 glass px-4 py-2 rounded-full">
-            <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" style={{ animationDelay: '0.3s' }} />
-            <span className="text-sm text-muted-foreground">Frameworks & Tools</span>
+            <div
+              className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"
+              style={{ animationDelay: '0.3s' }}
+            />
+            <span className="text-sm text-muted-foreground">
+              Frameworks &amp; Tools
+            </span>
           </div>
           <div className="flex items-center gap-2 glass px-4 py-2 rounded-full">
-            <div className="w-3 h-3 rounded-full bg-purple-500 animate-pulse" style={{ animationDelay: '0.6s' }} />
+            <div
+              className="w-3 h-3 rounded-full bg-purple-500 animate-pulse"
+              style={{ animationDelay: '0.6s' }}
+            />
             <span className="text-sm text-muted-foreground">Concepts</span>
           </div>
         </div>
@@ -179,7 +187,10 @@ const Skills = () => {
           className="relative min-h-[380px] flex flex-wrap justify-center items-center gap-2.5 p-7 glass rounded-3xl"
         >
           {skills.map((skill, index) => {
-            const nodeElement = cloudRef.current?.querySelectorAll('.skill-node')[index] as HTMLElement;
+            const nodeElement = cloudRef.current?.querySelectorAll(
+              '.skill-node'
+            )[index] as HTMLElement | undefined;
+
             let transform = '';
             if (nodeElement && mousePos.x && mousePos.y) {
               const rect = nodeElement.getBoundingClientRect();
@@ -192,7 +203,9 @@ const Skills = () => {
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 if (distance < 80) {
                   const force = (80 - distance) / 80;
-                  transform = `translate(${dx * force * 0.2}px, ${dy * force * 0.2}px)`;
+                  transform = `translate(${dx * force * 0.2}px, ${
+                    dy * force * 0.2
+                  }px)`;
                 }
               }
             }
@@ -204,24 +217,19 @@ const Skills = () => {
                 className={`skill-node cursor-pointer transition-all duration-300 ${getCategoryColor(
                   skill.category
                 )} ${getCategorySize(skill.level)} border hover:scale-110 hover:shadow-lg`}
-                style={{ 
-                  transform,
-                  boxShadow: hoveredSkill === skill.name ? `0 0 30px hsl(199, 89%, 48%, 0.5)` : 'none'
-                }}
-                {/* onMouseEnter={() => setHoveredSkill(skill.name)}
-                onMouseLeave={() => setHoveredSkill(null)}
+                style={{ transform }}
               >
                 {skill.name}
-                {hoveredSkill === skill.name && (
-                  <span className="ml-2 text-xs opacity-70 font-mono">{skill.level}%</span>
-                )} */}
               </Badge>
             );
           })}
         </div>
 
         {/* Skills breakdown with 3D cards */}
-        <div className="grid md:grid-cols-3 gap-8 mt-16" style={{ perspective: '1000px' }}>
+        <div
+          className="grid md:grid-cols-3 gap-8 mt-16"
+          style={{ perspective: '1000px' }}
+        >
           {/* Languages */}
           <TiltCard tiltAmount={8} glowColor="hsl(217, 91%, 60%)">
             <div className="glass rounded-2xl p-6 h-full border border-blue-500/20 ring-1 ring-blue-500/15 hover:ring-2 hover:ring-blue-400/45 hover:shadow-[0_0_40px_rgba(59,130,246,0.18)] transition-shadow">
@@ -233,15 +241,22 @@ const Skills = () => {
                 {skills
                   .filter((s) => s.category === 'language')
                   .map((skill) => (
-                    <div key={skill.name} className="flex items-center justify-between group">
-                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">{skill.name}</span>
+                    <div
+                      key={skill.name}
+                      className="flex items-center justify-between group"
+                    >
+                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                        {skill.name}
+                      </span>
                       <div className="flex-1 mx-3 h-2 bg-muted rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all duration-500 group-hover:shadow-lg group-hover:shadow-blue-500/30"
                           style={{ width: `${skill.level}%` }}
                         />
                       </div>
-                      <span className="text-xs text-blue-400 font-mono">{skill.level}%</span>
+                      <span className="text-xs text-blue-400 font-mono">
+                        {skill.level}%
+                      </span>
                     </div>
                   ))}
               </div>
@@ -252,23 +267,33 @@ const Skills = () => {
           <TiltCard tiltAmount={8} glowColor="hsl(160, 84%, 39%)">
             <div className="glass rounded-2xl p-6 h-full border border-emerald-500/20 ring-1 ring-emerald-500/15 hover:ring-2 hover:ring-emerald-400/45 hover:shadow-[0_0_40px_rgba(16,185,129,0.18)] transition-shadow">
               <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" style={{ animationDelay: '0.3s' }} />
-                Frameworks & Tools
+                <div
+                  className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"
+                  style={{ animationDelay: '0.3s' }}
+                />
+                Frameworks &amp; Tools
               </h3>
               <div className="space-y-3">
                 {skills
                   .filter((s) => s.category === 'framework')
                   .slice(0, 6)
                   .map((skill) => (
-                    <div key={skill.name} className="flex items-center justify-between group">
-                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">{skill.name}</span>
+                    <div
+                      key={skill.name}
+                      className="flex items-center justify-between group"
+                    >
+                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                        {skill.name}
+                      </span>
                       <div className="flex-1 mx-3 h-2 bg-muted rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500 group-hover:shadow-lg group-hover:shadow-emerald-500/30"
                           style={{ width: `${skill.level}%` }}
                         />
                       </div>
-                      <span className="text-xs text-emerald-400 font-mono">{skill.level}%</span>
+                      <span className="text-xs text-emerald-400 font-mono">
+                        {skill.level}%
+                      </span>
                     </div>
                   ))}
               </div>
@@ -279,7 +304,10 @@ const Skills = () => {
           <TiltCard tiltAmount={8} glowColor="hsl(270, 91%, 65%)">
             <div className="glass rounded-2xl p-6 h-full border border-purple-500/20 ring-1 ring-purple-500/15 hover:ring-2 hover:ring-purple-400/45 hover:shadow-[0_0_40px_rgba(168,85,247,0.18)] transition-shadow">
               <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-purple-500 animate-pulse" style={{ animationDelay: '0.6s' }} />
+                <div
+                  className="w-3 h-3 rounded-full bg-purple-500 animate-pulse"
+                  style={{ animationDelay: '0.6s' }}
+                />
                 Core Concepts
               </h3>
               <div className="space-y-3">
@@ -287,15 +315,22 @@ const Skills = () => {
                   .filter((s) => s.category === 'concept')
                   .slice(0, 6)
                   .map((skill) => (
-                    <div key={skill.name} className="flex items-center justify-between group">
-                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">{skill.name}</span>
+                    <div
+                      key={skill.name}
+                      className="flex items-center justify-between group"
+                    >
+                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                        {skill.name}
+                      </span>
                       <div className="flex-1 mx-3 h-2 bg-muted rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-purple-500 to-pink-400 rounded-full transition-all duration-500 group-hover:shadow-lg group-hover:shadow-purple-500/30"
                           style={{ width: `${skill.level}%` }}
                         />
                       </div>
-                      <span className="text-xs text-purple-400 font-mono">{skill.level}%</span>
+                      <span className="text-xs text-purple-400 font-mono">
+                        {skill.level}%
+                      </span>
                     </div>
                   ))}
               </div>
