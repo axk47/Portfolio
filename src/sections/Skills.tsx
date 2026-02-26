@@ -49,7 +49,7 @@ const Skills = () => {
     { name: 'Multithreading', category: 'concept', level: 85 },
   ];
 
-  const getCategoryColor = (category: string) => {
+  const getCategoryColor = (category: Skill['category']) => {
     switch (category) {
       case 'language':
         return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
@@ -62,8 +62,8 @@ const Skills = () => {
     }
   };
 
+  // Keep your Portfolio “stepped-down” sizing
   const getCategorySize = (level: number) => {
-    // Step everything down one notch for a slightly smaller look
     if (level >= 90) return 'text-base px-4 py-2';
     if (level >= 80) return 'text-sm px-3 py-1.5';
     return 'text-xs px-2.5 py-1';
@@ -181,10 +181,10 @@ const Skills = () => {
           </div>
         </div>
 
-        {/* Skills cloud */}
+        {/* Skills cloud (test-like pill layout, no hover, no % ) */}
         <div
           ref={cloudRef}
-          className="relative min-h-[380px] flex flex-wrap justify-center items-center gap-2.5 p-7 glass rounded-3xl"
+          className="relative min-h-[400px] flex flex-wrap justify-center items-center gap-3 p-8 glass rounded-3xl"
         >
           {skills.map((skill, index) => {
             const nodeElement = cloudRef.current?.querySelectorAll(
@@ -214,18 +214,18 @@ const Skills = () => {
               <Badge
                 key={skill.name}
                 variant="outline"
-                className={`skill-node cursor-pointer transition-all duration-300 ${getCategoryColor(
+                className={`skill-node cursor-default select-none transition-transform duration-300 ${getCategoryColor(
                   skill.category
-                )} ${getCategorySize(skill.level)} border hover:scale-110 hover:shadow-lg`}
+                )} ${getCategorySize(skill.level)} border rounded-full`}
                 style={{ transform }}
               >
-                {skill.name}
+                <span className="whitespace-nowrap">{skill.name}</span>
               </Badge>
             );
           })}
         </div>
 
-        {/* Skills breakdown with 3D cards */}
+        {/* Skills breakdown with 3D cards (unchanged) */}
         <div
           className="grid md:grid-cols-3 gap-8 mt-16"
           style={{ perspective: '1000px' }}
