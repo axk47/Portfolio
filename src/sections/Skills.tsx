@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+// import { useEffect, useRef, useState } from 'react'; // Removed the percentage showing while hover
 import { Badge } from '@/components/ui/badge';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -16,7 +16,7 @@ const Skills = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cloudRef = useRef<HTMLDivElement>(null);
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  // const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const skills: Skill[] = [
@@ -208,13 +208,13 @@ const Skills = () => {
                   transform,
                   boxShadow: hoveredSkill === skill.name ? `0 0 30px hsl(199, 89%, 48%, 0.5)` : 'none'
                 }}
-                onMouseEnter={() => setHoveredSkill(skill.name)}
+                {/* onMouseEnter={() => setHoveredSkill(skill.name)}
                 onMouseLeave={() => setHoveredSkill(null)}
               >
                 {skill.name}
                 {hoveredSkill === skill.name && (
                   <span className="ml-2 text-xs opacity-70 font-mono">{skill.level}%</span>
-                )}
+                )} */}
               </Badge>
             );
           })}
