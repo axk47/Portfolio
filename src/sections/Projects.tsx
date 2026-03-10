@@ -27,6 +27,40 @@ const withBase = (path: string) =>
   `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
 const PROJECTS: Project[] = [
+  // (optional) put CredCheck first so it appears first on the page
+  {
+    title: "CredCheck",
+    subtitle: "HackCanada 2026 • AI + 3D Visualization",
+    description:
+      "Ontario university credit transfer analysis powered by Gemini AI and visualized in 3D (course planets: transfer/review/lost).",
+    tech: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Three.js",
+      "@react-three/fiber",
+      "@react-three/drei",
+      "Zustand",
+      "Tailwind CSS",
+      "Gemini",
+      "Express.js",
+      "Google App Engine",
+      "PDF.js",
+    ],
+    image: withBase("project-credcheck.jpg"), // add this image to /public (see step 2)
+    icon: Network, // or Code2 / Database / Shield (pick what you like)
+    highlights: [
+      "Transcript PDF upload → transfer likelihood + year standing + GPA conversion",
+      "3D orbital visualization: green transfer / amber review / red lost grouped by department",
+      "Tuition ‘value at risk’ using verified 2024–25 institutional data (domestic vs international)",
+      "Gemini used only for unstructured transcript parsing + subject categorization (facts hardcoded)",
+    ],
+    github: "https://github.com/axk47/CredCheck", // change to your real repo, or remove if private
+    demo: "https://hackcanada2026-ayaan.nn.r.appspot.com",
+    color: "hsl(280 85% 60%)",
+  },
+
+const PROJECTS: Project[] = [
   {
     title: "Bean & Brew",
     subtitle: "Web Development Project",
