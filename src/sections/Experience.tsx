@@ -28,7 +28,7 @@ const Experience = () => {
       title: 'AI Training Specialist',
       company: 'Aether Project – Outlier AI',
       location: 'Remote',
-      period: 'Jan 2026 – Present',
+      period: 'Dec 2026 – Present',
       type: 'Contract',
       description: [
         'Train and evaluate large language models by generating high-quality code examples and providing detailed feedback on model-generated responses',
