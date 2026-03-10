@@ -46,7 +46,7 @@ const PROJECTS: Project[] = [
       "Google App Engine",
       "PDF.js",
     ],
-    image: withBase("project-credcheck.jpg"), // add this image to /public (see step 2)
+    image: withBase("credcheck.png"), // add this image to /public (see step 2)
     icon: Network, // or Code2 / Database / Shield (pick what you like)
     highlights: [
       "Transcript PDF upload → transfer likelihood + year standing + GPA conversion",
