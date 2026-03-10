@@ -27,8 +27,7 @@ const withBase = (path: string) =>
   `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
 const PROJECTS: Project[] = [
-  // (optional) put CredCheck first so it appears first on the page
-  {
+   {
     title: "CredCheck",
     subtitle: "HackCanada 2026 • AI + 3D Visualization",
     description:
@@ -60,7 +59,6 @@ const PROJECTS: Project[] = [
     color: "hsl(280 85% 60%)",
   },
 
-const PROJECTS: Project[] = [
   {
     title: "Bean & Brew",
     subtitle: "Web Development Project",
